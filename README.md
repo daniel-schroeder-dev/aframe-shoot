@@ -23,6 +23,8 @@ Include the component file in the head of your HTML document:
 </a-camera>
 ```
 
+Attach the `shoot` component to your `<a-camera>`, and pass in the relevant parameters. The bullet should be attached to the camera for this to work.
+
 ## Parameters
 
 | Parameter          | Default | Description |
