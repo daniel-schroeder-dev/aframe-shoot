@@ -9,14 +9,13 @@ AFRAME.registerComponent('shoot', {
 		}
 	},
   init: function() {
-  	const self = this;
   	const bullet = this.data.bullet;
   	const scene = document.querySelector('a-scene');
   	this.el.addEventListener('click', e => {
   		const targetPosition = e.detail.intersection.point;
-  		const cameraPosition = self.el.getAttribute('position');
+  		const cameraPosition = this.el.getAttribute('position');
   		const distance = Math.abs(targetPosition.z - cameraPosition.z);
-  		const rate = self.data.rate;
+  		const rate = this.data.rate;
   		const time = distance / rate;
   		const animationString = `
   			property: position;
@@ -27,6 +26,9 @@ AFRAME.registerComponent('shoot', {
   		`;
   		const clone = bullet.cloneNode();
   		clone.setAttribute('animation', animationString);
+      const cameraRotation = this.el.getAttribute('rotation')
+      const rotationDelta = bullet.getAttribute('rotation')
+      clone.setAttribute('rotation', `0 ${cameraRotation.y + rotationDelta.y} ${cameraRotation.x}`);
   		clone.addEventListener('animationcomplete', () => clone.remove());
   		scene.append(clone);
   	});
